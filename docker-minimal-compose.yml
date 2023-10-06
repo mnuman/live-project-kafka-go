@@ -9,6 +9,8 @@ services:
     ports:
       - "9092:9092"
       - "9101:9101"
+    networks:
+      - kafkanetwork
     environment:
       KAFKA_NODE_ID: 1
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
@@ -37,6 +39,8 @@ services:
       - broker
     ports:
       - "9021:9021"
+    networks:
+      - kafkanetwork
     environment:
       CONTROL_CENTER_BOOTSTRAP_SERVERS: 'broker:29092'
       CONTROL_CENTER_REPLICATION_FACTOR: 1
@@ -45,3 +49,7 @@ services:
       CONFLUENT_METRICS_TOPIC_REPLICATION: 1
       PORT: 9021
 
+networks:
+  kafkanetwork:
+    internal: true
+    attachable: true
